@@ -5,7 +5,11 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      mytheme: {
+        "accent": "#5c7f67",
+      },
+    },
   },
   plugins: [require("daisyui")],
 }

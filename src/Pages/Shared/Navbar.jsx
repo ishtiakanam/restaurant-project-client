@@ -1,6 +1,74 @@
+import { useContext } from "react";
+import { NavLink } from "react-router-dom";
+import { AuthContext } from "../../Provider/AuthProvider";
+
 const Navbar = () => {
+    const { user, logOut } = useContext(AuthContext)
+    const handleLogOut = () => {
+        logOut()
+            .then(res => {
+                console.log(res);
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
     const links = <>
-        <li><a>Item 1</a></li>
+        <li>
+            <NavLink
+                to="/"
+                className={({ isActive, isPending }) =>
+                    isPending ? "pending" : isActive ? "active" : ""
+                }>Home</NavLink>
+        </li>
+        <li>
+            <NavLink
+                to="/menu"
+                className={({ isActive, isPending }) =>
+                    isPending ? "pending" : isActive ? "active" : ""
+                }>Menu</NavLink>
+        </li>
+        <li>
+            <NavLink
+                to="/order/salad"
+                className={({ isActive, isPending }) =>
+                    isPending ? "pending" : isActive ? "active" : ""
+                }>Order</NavLink>
+        </li>
+        <li>
+            <NavLink
+                to="/secret"
+                className={({ isActive, isPending }) =>
+                    isPending ? "pending" : isActive ? "active" : ""
+                }>Secret</NavLink>
+        </li>
+
+        {
+            user ?
+                <>
+                    <li>
+                        <span>{user?.displayName}</span>
+                        <button onClick={() => handleLogOut()} className="btn btn-ghost">Logout</button>
+                    </li>
+                </>
+                :
+                <>
+                    <li>
+                        <NavLink
+                            to="/login"
+                            className={({ isActive, isPending }) =>
+                                isPending ? "pending" : isActive ? "active" : ""
+                            }>Login</NavLink>
+                    </li>
+                </>
+        }
+        <li>
+            <NavLink
+                to="/signup"
+                className={({ isActive, isPending }) =>
+                    isPending ? "pending" : isActive ? "active" : ""
+                }>Sign Up</NavLink>
+        </li>
     </>
     return (
         <div>
